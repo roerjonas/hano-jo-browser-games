@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spiele — Hano & Jonas</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: linear-gradient(135deg, #0b1929 0%, #14293d 100%);
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 56px;
+      color: #ffd700;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .subtitle {
+      font-size: 22px;
+      color: #aaa;
+      margin-bottom: 50px;
+      font-style: italic;
+    }
+
+    .game-grid {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .game-card {
+      display: block;
+      text-decoration: none;
+      color: #fff;
+      background: #14293d;
+      border-radius: 16px;
+      padding: 32px 28px;
+      width: 320px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+      border: 3px solid #1f3a55;
+      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .game-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: #ffd700;
+      box-shadow: 0 18px 44px rgba(255, 215, 0, 0.25);
+    }
+
+    .game-icon {
+      width: 100%;
+      height: 160px;
+      border-radius: 12px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      font-weight: bold;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .game-card.fishing .game-icon {
+      background: linear-gradient(135deg, #2980b9 0%, #0a3a5e 100%);
+      color: #67e8f9;
+    }
+
+    .game-card.bank .game-icon {
+      background: linear-gradient(135deg, #2c1810 0%, #4a2818 100%);
+      color: #ffd700;
+    }
+
+    .game-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #ffd700;
+      margin-bottom: 8px;
+    }
+
+    .game-desc {
+      font-size: 16px;
+      color: #ccc;
+      line-height: 1.5;
+    }
+
+    .footer {
+      margin-top: 50px;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Spiele</h1>
+  <p class="subtitle">Wähle ein Spiel</p>
+
+  <div class="game-grid">
+    <a href="fishing.html" class="game-card fishing">
+      <div class="game-icon">🐟</div>
+      <div class="game-title">Angelwettkampf</div>
+      <div class="game-desc">Hano vs Jonas — fang Fische, verkauf sie an Märkten in USA, Deutschland oder Korea, und weich Piraten aus!</div>
+    </a>
+
+    <a href="bank.html" class="game-card bank">
+      <div class="game-icon">🚗</div>
+      <div class="game-title">Banküberfall</div>
+      <div class="game-desc">Fahr durch die Stadt, überfall Banken, zähl das Geld richtig — und schieß Herzen aus deiner Trompete, wenn die Polizei kommt!</div>
+    </a>
+  </div>
+
+  <p class="footer">Pfeiltasten zum Steuern · Leertaste zum Aktion · Maus für Buttons</p>
+</body>
+</html>

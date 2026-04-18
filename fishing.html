@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angelwettkampf — Hano vs Jonas</title>
+  <link rel="stylesheet" href="fishing.css">
+</head>
+<body>
+  <a href="index.html" class="back-link">← Zurück zum Menü</a>
+  <div class="game-wrap">
+    <div class="hud">
+      <div class="hud-left">
+        <span id="current-player">Hano</span>
+        <span id="boot-count">Boot: 0/5</span>
+        <span id="timer">2:00</span>
+      </div>
+      <div class="hud-right">
+        <span class="score-box hano">Hano: <b id="money-hano">0</b>€</span>
+        <span class="score-box jonas">Jonas: <b id="money-jonas">0</b>€</span>
+      </div>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="game" width="960" height="640"></canvas>
+
+      <div id="overlay-menu" class="overlay">
+        <h1>Angelwettkampf</h1>
+        <h2>Hano vs Jonas</h2>
+        <p>
+          <b>Pfeiltasten</b> oder <b>WASD</b> &mdash; Boot fahren<br>
+          <b>Leertaste</b> &mdash; Angel auswerfen / einholen
+        </p>
+        <p>Jeder hat <b>2 Minuten</b> Zeit.<br>Wer mehr Fische fängt, gewinnt!</p>
+        <button id="btn-start">Spiel starten</button>
+      </div>
+
+      <div id="overlay-intro" class="overlay hidden">
+        <h1 id="intro-name">Hano</h1>
+        <h2>ist dran!</h2>
+        <p>Drücke <b>Leertaste</b> zum Starten</p>
+      </div>
+
+      <div id="overlay-turnend" class="overlay hidden">
+        <p id="turnend-reason" style="font-size:28px; color:#ff6b6b; display:none;"></p>
+        <h2><span id="turnend-name">Hano</span> hat verdient:</h2>
+        <h1><span id="turnend-score">0€</span></h1>
+      </div>
+
+      <div id="overlay-market" class="overlay hidden">
+        <h1 id="market-title">Markt</h1>
+        <p>Verkaufe deine Fische — wieviel Geld bekommst du?</p>
+        <div id="market-fish-list"></div>
+        <div class="market-input-row">
+          <span class="equals">=</span>
+          <input type="number" id="market-input" inputmode="numeric" autocomplete="off" placeholder="?">
+          <span class="euro">€</span>
+          <button id="btn-sell">Verkaufen</button>
+        </div>
+        <p id="market-feedback">&nbsp;</p>
+      </div>
+
+      <div id="overlay-pirate" class="overlay hidden">
+        <h2 class="pirate-title">Halt, Landratte!</h2>
+        <p class="pirate-quote" id="pirate-instruction">„Schreibe einen Satz, der zum Bild passt!"</p>
+        <canvas id="pirate-scene" width="320" height="220"></canvas>
+        <div id="pirate-task" class="pirate-task hidden"></div>
+        <div class="pirate-input-row" id="pirate-input-row">
+          <input type="text" id="pirate-input" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Deine Antwort…">
+          <button id="btn-pirate-answer">Antworten</button>
+        </div>
+        <div id="pirate-feedback-box" class="pirate-feedback-box"></div>
+        <p id="pirate-attempts" class="pirate-attempts">&nbsp;</p>
+      </div>
+
+      <div id="overlay-gameover" class="overlay hidden">
+        <h1 id="winner-text">Gewinner!</h1>
+        <h2 id="final-scores"></h2>
+        <button id="btn-restart">Nochmal spielen</button>
+      </div>
+    </div>
+
+    <div class="info-panel">
+      <div class="info-row info-row-market">
+        <span class="info-label">Markt offen:</span>
+        <span class="open-market-badge">
+          <span class="flag-mini" id="open-market-flag"></span>
+          <span id="open-market-name">—</span>
+        </span>
+        <span class="info-update">schließt in <b id="market-timer">8</b>s</span>
+      </div>
+      <div class="info-row info-row-prices">
+        <span class="info-label">Fischpreise:</span>
+        <span class="legend-item"><span class="dot" style="background:#ffa94d"></span> 1€</span>
+        <span class="legend-item"><span class="dot" style="background:#fcd34d"></span> 2€</span>
+        <span class="legend-item"><span class="dot" style="background:#a3e635"></span> 3€</span>
+        <span class="legend-item"><span class="dot" style="background:#f472b6"></span> 4€</span>
+        <span class="legend-item"><span class="dot" style="background:#67e8f9"></span> 5€</span>
+      </div>
+    </div>
+
+    <div id="screen-flash"></div>
+  </div>
+  <script src="fishing.js"></script>
+</body>
+</html>

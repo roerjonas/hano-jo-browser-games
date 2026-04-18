@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banküberfall</title>
+  <link rel="stylesheet" href="bank.css">
+</head>
+<body>
+  <a href="index.html" class="back-link">← Zurück zum Menü</a>
+  <div class="game-wrap">
+    <div class="hud">
+      <div class="hud-left">
+        <span class="hud-label">Geld:</span>
+        <span class="money-display"><b id="money-total">0</b>€</span>
+      </div>
+      <div class="hud-right">
+        <span class="hud-label">Banken:</span>
+        <span class="hud-stat"><b id="banks-robbed">0</b></span>
+        <span class="hud-label">Polizei:</span>
+        <span class="hud-stat"><b id="cops-active">0</b></span>
+        <span id="chase-status" class="chase-status hidden">FLUCHT: <b id="chase-timer">0</b>s</span>
+      </div>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="game" width="960" height="640"></canvas>
+
+      <div id="overlay-menu" class="overlay">
+        <h1>Banküberfall</h1>
+        <p class="subtitle">Du fährst, du raubst, du rechnest.</p>
+        <div class="instructions">
+          <p><b>Pfeiltasten</b> oder <b>WASD</b> &mdash; Auto fahren</p>
+          <p><b>Leertaste</b> &mdash; Patronen abfeuern</p>
+        </div>
+        <p class="howto">
+          Fahr zu einer Bank, zähl die Scheine, und tipp die Summe ein.<br>
+          Nach jedem Überfall jagt dich die Polizei — alle 10 Sekunden kommt ein neues Auto dazu.<br>
+          Schieß Patronen auf Polizisten und Straßensperren. Überleg dir ob du kämpfst oder fliehst!
+        </p>
+        <button id="btn-start">Los geht's!</button>
+      </div>
+
+      <div id="overlay-rob" class="overlay hidden">
+        <h2 id="rob-title">Banküberfall!</h2>
+        <p class="rob-quote">Zähl die Scheine und tipp die Summe ein:</p>
+        <div id="rob-bills"></div>
+        <div class="rob-input-row">
+          <span class="equals">=</span>
+          <input type="number" id="rob-input" inputmode="numeric" autocomplete="off" placeholder="?">
+          <span class="euro">€</span>
+          <button id="btn-rob-submit">Mitnehmen</button>
+        </div>
+        <p id="rob-feedback">&nbsp;</p>
+        <button id="btn-rob-cancel" style="margin-top:4px; background:#555; color:#ddd; font-size:16px; padding:8px 24px; box-shadow:none;">Weggehen (kein Geld)</button>
+      </div>
+
+      <div id="overlay-caught" class="overlay hidden">
+        <h1 class="caught-title">Erwischt!</h1>
+        <p>Die Polizei hat dich geschnappt!</p>
+        <p class="penalty">Du verlierst <b id="caught-penalty">0</b>€</p>
+        <p class="penalty">Überlebt: <b id="caught-survived">0</b>s</p>
+        <button id="btn-caught-continue">Weitermachen</button>
+      </div>
+    </div>
+
+    <div class="info-panel">
+      <div class="info-row">
+        <span class="info-label">Tipp:</span>
+        Fahr zu einem Banken-Symbol (gold). Alle 10s kommt ein neues Polizeiauto — schieß Patronen (Leertaste) und versuche so lange wie möglich zu fliehen!
+      </div>
+    </div>
+
+    <div id="screen-flash"></div>
+  </div>
+  <script src="bank.js"></script>
+</body>
+</html>
