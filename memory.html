@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory — Hano vs Jonas</title>
+  <link rel="stylesheet" href="memory.css">
+</head>
+<body>
+  <a href="index.html" class="back-link">← Zurück zum Menü</a>
+  <div class="game-wrap">
+    <div class="hud">
+      <div class="hud-left">
+        <span id="hud-mode-label" class="hud-label">Modus:</span>
+        <span id="hud-mode" class="hud-stat">—</span>
+        <span id="hud-turn" class="hud-turn hidden">Dran: <b id="current-player">Hano</b></span>
+      </div>
+      <div class="hud-right">
+        <span id="hud-scores" class="hud-scores hidden">
+          <span class="score-box p1"><span id="label-p1">Hano</span>: <b id="score-p1">0</b></span>
+          <span class="score-box p2"><span id="label-p2">Jonas</span>: <b id="score-p2">0</b></span>
+        </span>
+        <span id="hud-timer" class="hud-timer hidden">Zeit: <b id="timer-display">0:00</b></span>
+      </div>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="game" width="960" height="720"></canvas>
+
+      <div id="overlay-menu" class="overlay">
+        <h1>Memory</h1>
+        <p class="subtitle">Finde alle Paare!</p>
+        <div class="instructions">
+          <p>Klick auf zwei Karten, um sie aufzudecken.</p>
+          <p>Gleiches Bild? <b>Punkt!</b> Dann nochmal du.</p>
+          <p>Sonst ist der andere dran.</p>
+        </div>
+        <div class="name-inputs">
+          <label>Name 1: <input type="text" id="name-1" maxlength="14" value="Hano" autocomplete="off"></label>
+          <label>Name 2: <input type="text" id="name-2" maxlength="14" value="Jonas" autocomplete="off"></label>
+        </div>
+        <p class="howto">Wähle einen Modus:</p>
+        <div class="mode-buttons">
+          <button id="btn-mode-vs">2 Spieler</button>
+          <button id="btn-mode-solo">Solo gegen die Uhr</button>
+        </div>
+      </div>
+
+      <div id="overlay-gameover" class="overlay hidden">
+        <h1 id="gameover-title">Vorbei!</h1>
+        <h2 id="gameover-result"></h2>
+        <p id="gameover-detail" class="gameover-detail"></p>
+        <button id="btn-restart">Nochmal spielen</button>
+      </div>
+    </div>
+
+    <div class="info-panel">
+      <div class="info-row">
+        <span class="info-label">Tipp:</span>
+        Merk dir die Bilder gut! Wer zwei gleiche aufdeckt, bekommt einen Punkt und ist nochmal dran.
+      </div>
+    </div>
+  </div>
+  <script src="memory.js"></script>
+</body>
+</html>
