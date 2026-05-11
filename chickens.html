@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hühnerschießen</title>
+  <link rel="stylesheet" href="chickens.css">
+</head>
+<body>
+  <a href="index.html" class="back-link">← Zurück zum Menü</a>
+  <div class="game-wrap">
+    <div class="hud">
+      <div class="hud-left">
+        <span class="hud-label">Treffer:</span>
+        <span class="hud-stat"><b id="hit-count">0</b></span>
+        <span class="hud-label">Bester:</span>
+        <span class="hud-stat highscore"><b id="highscore">0</b></span>
+      </div>
+      <div class="hud-right">
+        <span class="hud-label">Zeit:</span>
+        <span class="hud-timer"><b id="timer">60</b>s</span>
+      </div>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="game" width="960" height="600"></canvas>
+
+      <div id="overlay-menu" class="overlay">
+        <h1>Hühnerschießen</h1>
+        <p class="subtitle">Triff so viele Hühner wie möglich in 60 Sekunden!</p>
+        <div class="instructions">
+          <p><b>Maus</b> &mdash; Zielen</p>
+          <p><b>Linksklick</b> &mdash; Schießen</p>
+        </div>
+        <div class="chicken-points">
+          <div class="point-item">
+            <span class="chicken-dot white"></span> <b>Weiß</b> = 1 Punkt
+          </div>
+          <div class="point-item">
+            <span class="chicken-dot brown"></span> <b>Braun</b> = 2 Punkte
+          </div>
+          <div class="point-item">
+            <span class="chicken-dot gold"></span> <b>Golden</b> = 5 Punkte (selten + schnell)
+          </div>
+          <div class="point-item">
+            <span class="chicken-dot diamond"></span> <b>Diamant</b> = 10 Punkte (sehr selten!)
+          </div>
+        </div>
+        <p class="howto">Am Ende musst du selber zählen und ausrechnen — wenn alles stimmt, gibt's <b>Bonus-Punkte!</b></p>
+        <button id="btn-start">Los geht's!</button>
+      </div>
+
+      <div id="overlay-gameover" class="overlay hidden">
+        <!-- Schritt 1: Punkte ausrechnen -->
+        <div id="count-step">
+          <h1>Zeit vorbei!</h1>
+          <p class="subtitle">Du hast getroffen:</p>
+          <div class="count-grid" id="count-display">
+            <div class="count-row">
+              <span class="chicken-dot white"></span>
+              <span class="count-name">Weiß × 1 Punkt</span>
+              <span class="count-value"><b id="display-white">0</b> Hühner</span>
+            </div>
+            <div class="count-row">
+              <span class="chicken-dot brown"></span>
+              <span class="count-name">Braun × 2 Punkte</span>
+              <span class="count-value"><b id="display-brown">0</b> Hühner</span>
+            </div>
+            <div class="count-row">
+              <span class="chicken-dot gold"></span>
+              <span class="count-name">Gold × 5 Punkte</span>
+              <span class="count-value"><b id="display-gold">0</b> Hühner</span>
+            </div>
+            <div class="count-row">
+              <span class="chicken-dot diamond"></span>
+              <span class="count-name">Diamant × 10 Punkte</span>
+              <span class="count-value"><b id="display-diamond">0</b> Hühner</span>
+            </div>
+          </div>
+          <div class="total-row">
+            <span class="total-label">Wie viele Punkte sind das?</span>
+            <input type="number" id="count-total" min="0" inputmode="numeric" autocomplete="off">
+          </div>
+          <button id="btn-evaluate">Auswerten</button>
+        </div>
+
+        <!-- Schritt 2: Ergebnis -->
+        <div id="result-step" class="hidden">
+          <h1 id="result-title">Auswertung</h1>
+          <div class="result-grid" id="result-grid"></div>
+          <div class="result-final">
+            <h2>Endpunkte: <span id="final-score">0</span></h2>
+            <p id="bonus-line" class="bonus-line"></p>
+            <p id="highscore-message" class="hs-message"></p>
+          </div>
+          <button id="btn-restart">Nochmal spielen</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-panel">
+      <div class="info-row">
+        <span class="info-label">Tipp:</span>
+        Goldhühner sind schnell und geben 5 Punkte — aber sie verschwinden auch schnell wieder!
+      </div>
+    </div>
+  </div>
+  <script src="chickens.js"></script>
+</body>
+</html>
