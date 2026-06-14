@@ -108,6 +108,15 @@ canvas {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
   width: 100%;
   height: auto;
+  margin: 0 auto;
+  aspect-ratio: 960 / 600;
+  /* Verhindert Pinch-Zoom / Scroll / Doppeltipp-Zoom auf Touchgeräten */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  /* Auf Querformat-Handys: Höhe begrenzen, sodass Canvas in den Viewport passt */
+  max-width: calc((100vh - 110px) * 960 / 600);
 }
 
 canvas.playing {
@@ -447,4 +456,74 @@ button:active {
   color: #ffd700;
   font-weight: bold;
   margin-right: 8px;
+}
+
+/* === Handy / Tablet === */
+@media (max-width: 760px) {
+  body { padding: 8px; align-items: flex-start; }
+
+  .back-link {
+    position: static;
+    display: inline-block;
+    font-size: 13px;
+    padding: 6px 12px;
+    margin-bottom: 8px;
+  }
+
+  .game-wrap { width: 100%; }
+
+  .info-panel { display: none; }
+
+  .hud {
+    padding: 8px 12px;
+    font-size: 14px;
+    gap: 8px;
+  }
+  .hud-label { font-size: 11px; margin-right: 4px; }
+  .hud-left, .hud-right { gap: 8px; }
+  .hud-stat, .hud-timer {
+    font-size: 16px;
+    padding: 4px 10px;
+    min-width: 44px;
+  }
+
+  .overlay { padding: 16px; gap: 8px; }
+  .overlay h1 { font-size: 30px; }
+  .overlay h2 { font-size: 22px; }
+  .overlay h2 span { font-size: 30px; }
+  .overlay .subtitle { font-size: 14px; }
+
+  .instructions { font-size: 14px; }
+  .chicken-points { font-size: 14px; padding: 8px 14px; gap: 4px; }
+  .howto { font-size: 12px; max-width: 100%; }
+
+  button {
+    margin-top: 10px;
+    padding: 12px 28px;
+    font-size: 18px;
+  }
+
+  /* Game-Over Auswertung */
+  #overlay-gameover h1 { font-size: 28px; }
+  .count-grid { padding: 8px 12px; gap: 4px; }
+  .count-row { font-size: 14px; gap: 8px; }
+  .count-value { font-size: 14px; min-width: 70px; }
+  .count-value b { font-size: 18px; }
+  .total-row { padding: 8px 12px; gap: 8px; }
+  .total-label { font-size: 15px; }
+  .total-row input { width: 88px; font-size: 22px; }
+  .result-grid { min-width: 0; padding: 8px 12px; }
+  .result-row { font-size: 14px; }
+  .result-row.math .vals { font-size: 14px; }
+  .result-row.math .vals b { font-size: 16px; }
+  .hs-message, .bonus-line { font-size: 16px; }
+}
+
+/* Sehr kleine Handys / Hochformat */
+@media (max-width: 420px) {
+  .overlay h1 { font-size: 24px; }
+  .overlay { padding: 12px; gap: 6px; }
+  .chicken-points { font-size: 13px; padding: 6px 10px; }
+  .instructions { font-size: 13px; }
+  button { padding: 10px 22px; font-size: 16px; }
 }

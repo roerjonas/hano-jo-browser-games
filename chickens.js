@@ -216,6 +216,43 @@ canvas.addEventListener('mousedown', (e) => {
   shoot(state.mouse.x, state.mouse.y);
 });
 
+// === Touch-Input (Handy/Tablet) ===
+// Zielfernrohr sitzt über dem Finger, damit man das Ziel sehen kann.
+const TOUCH_SCOPE_OFFSET_Y = 140;
+
+function setScopeFromTouch(touch) {
+  const rect = canvas.getBoundingClientRect();
+  const x = (touch.clientX - rect.left) * (W / rect.width);
+  const y = (touch.clientY - rect.top) * (H / rect.height) - TOUCH_SCOPE_OFFSET_Y;
+  state.mouse.x = Math.max(0, Math.min(W, x));
+  state.mouse.y = Math.max(0, Math.min(H, y));
+  state.mouseInside = true;
+}
+
+canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  if (e.touches.length === 0) return;
+  setScopeFromTouch(e.touches[0]);
+}, { passive: false });
+
+canvas.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  if (e.touches.length === 0) return;
+  setScopeFromTouch(e.touches[0]);
+}, { passive: false });
+
+canvas.addEventListener('touchend', (e) => {
+  e.preventDefault();
+  if (!state.running) return;
+  if (e.touches.length > 0) return; // andere Finger noch unten
+  if (state.shotCooldown > 0) return;
+  shoot(state.mouse.x, state.mouse.y);
+}, { passive: false });
+
+canvas.addEventListener('touchcancel', (e) => {
+  e.preventDefault();
+}, { passive: false });
+
 function shoot(sx, sy) {
   state.shotsFired++;
   state.shotCooldown = 0.18; // Sekunden
