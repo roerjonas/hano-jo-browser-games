@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drei Türen</title>
+  <link rel="stylesheet" href="doors.css">
+</head>
+<body>
+  <a href="index.html" class="back-link">← Zurück zum Menü</a>
+
+  <div class="game-wrap">
+    <div class="hud">
+      <div class="hud-left">
+        <span class="hud-label">Punkte:</span>
+        <span class="hud-stat"><b id="score">0</b></span>
+        <span class="hud-label">Serie:</span>
+        <span class="hud-stat streak"><b id="streak">0</b></span>
+      </div>
+      <div class="hud-right">
+        <span class="hud-label">Beste Serie:</span>
+        <span class="hud-stat best"><b id="best">0</b></span>
+      </div>
+    </div>
+
+    <div class="stage">
+      <h1 class="stage-title">Drei Türen</h1>
+      <p class="hint" id="hint">Wähle eine Form &mdash; und dann eine Tür!</p>
+
+      <div class="shape-picker" id="shape-picker">
+        <button class="shape-btn" data-shape="square" aria-label="Quadrat">
+          <svg viewBox="0 0 60 60"><rect x="10" y="10" width="40" height="40" rx="4"/></svg>
+        </button>
+        <button class="shape-btn" data-shape="triangle" aria-label="Dreieck">
+          <svg viewBox="0 0 60 60"><polygon points="30,8 54,52 6,52"/></svg>
+        </button>
+        <button class="shape-btn" data-shape="circle" aria-label="Kreis">
+          <svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="22"/></svg>
+        </button>
+      </div>
+
+      <div class="doors" id="doors">
+        <div class="door" data-door="0">
+          <div class="door-panel">
+            <div class="knob"></div>
+            <span class="door-num">1</span>
+          </div>
+          <div class="door-reveal"></div>
+        </div>
+        <div class="door" data-door="1">
+          <div class="door-panel">
+            <div class="knob"></div>
+            <span class="door-num">2</span>
+          </div>
+          <div class="door-reveal"></div>
+        </div>
+        <div class="door" data-door="2">
+          <div class="door-panel">
+            <div class="knob"></div>
+            <span class="door-num">3</span>
+          </div>
+          <div class="door-reveal"></div>
+        </div>
+      </div>
+
+      <p class="result" id="result">&nbsp;</p>
+    </div>
+
+    <div class="info-panel">
+      <div class="info-row">
+        <span class="info-label">So geht's:</span>
+        Hinter jeder Tür versteckt sich eine Form. Rate, welche Form hinter deiner Tür steckt.
+        Triffst du richtig, darfst du durch und deine Serie wächst!
+      </div>
+    </div>
+  </div>
+
+  <script src="doors.js"></script>
+</body>
+</html>

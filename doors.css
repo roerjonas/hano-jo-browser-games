@@ -1,0 +1,330 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: linear-gradient(135deg, #0b1929 0%, #14293d 100%);
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.back-link {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  color: #ffd700;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  background: #14293d;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 2px solid #1f3a55;
+  z-index: 100;
+  transition: border-color 0.15s;
+}
+
+.back-link:hover {
+  border-color: #ffd700;
+}
+
+.game-wrap {
+  width: 720px;
+  max-width: 100%;
+}
+
+/* === HUD === */
+.hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: #14293d;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  border: 2px solid #1f3a55;
+}
+
+.hud-left, .hud-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hud-label {
+  color: #aaa;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hud-stat {
+  background: #0b1929;
+  padding: 6px 16px;
+  border-radius: 8px;
+  border: 2px solid #1f3a55;
+  font-size: 22px;
+  color: #ffd700;
+  font-variant-numeric: tabular-nums;
+  min-width: 54px;
+  text-align: center;
+}
+
+.hud-stat.streak { border-color: #67e8f9; }
+.hud-stat.streak b { color: #67e8f9; }
+.hud-stat.best { border-color: #a3e635; }
+.hud-stat.best b { color: #a3e635; }
+
+/* === Stage === */
+.stage {
+  margin-top: 16px;
+  background: #14293d;
+  border-radius: 14px;
+  border: 2px solid #1f3a55;
+  padding: 28px 24px 32px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.stage-title {
+  font-size: 40px;
+  color: #ffd700;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  margin-bottom: 6px;
+}
+
+.hint {
+  font-size: 19px;
+  color: #ddd;
+  font-style: italic;
+  min-height: 26px;
+  margin-bottom: 18px;
+}
+
+/* === Shape picker === */
+.shape-picker {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 26px;
+}
+
+.shape-btn {
+  width: 78px;
+  height: 78px;
+  padding: 10px;
+  background: #0b1929;
+  border: 3px solid #1f3a55;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.12s, border-color 0.12s, box-shadow 0.12s;
+}
+
+.shape-btn svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.shape-btn[data-shape="square"] svg   { fill: #67e8f9; }
+.shape-btn[data-shape="triangle"] svg { fill: #a3e635; }
+.shape-btn[data-shape="circle"] svg   { fill: #ff8ad1; }
+
+.shape-btn:hover {
+  transform: translateY(-3px);
+  border-color: #ffd700;
+}
+
+.shape-btn.selected {
+  border-color: #ffd700;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.35), 0 8px 22px rgba(255, 215, 0, 0.35);
+  transform: translateY(-3px);
+}
+
+/* === Doors === */
+.doors {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+}
+
+.door {
+  position: relative;
+  width: 150px;
+  height: 230px;
+  border-radius: 10px 10px 4px 4px;
+  cursor: pointer;
+  perspective: 900px;
+  background: #0b1929;
+  border: 3px solid #0b1929;
+}
+
+/* The revealed shape sits behind the panel */
+.door-reveal {
+  position: absolute;
+  inset: 6px;
+  z-index: 1;
+  border-radius: 6px;
+  background: #05101c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.door-reveal svg {
+  width: 88px;
+  height: 88px;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.25s ease 0.25s, transform 0.35s ease 0.25s;
+}
+
+.door.open .door-reveal svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.door-reveal[data-shape="square"] svg   { fill: #67e8f9; }
+.door-reveal[data-shape="triangle"] svg { fill: #a3e635; }
+.door-reveal[data-shape="circle"] svg   { fill: #ff8ad1; }
+
+/* The front door panel that swings open */
+.door-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 10px 10px 4px 4px;
+  background: linear-gradient(135deg, #7a4a22 0%, #5c3517 100%);
+  border: 4px solid #3f240f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: left center;
+  transition: transform 0.45s ease;
+  backface-visibility: hidden;
+  box-shadow: inset 0 0 0 6px rgba(0, 0, 0, 0.12);
+}
+
+/* wood panel lines */
+.door-panel::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 3px solid rgba(0, 0, 0, 0.18);
+  border-radius: 6px;
+}
+
+.door-num {
+  position: absolute;
+  top: 14px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.knob {
+  position: absolute;
+  right: 14px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffe680, #b8860b);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.door.open .door-panel {
+  transform: rotateY(-105deg);
+}
+
+.door:not(.locked):hover .door-panel {
+  filter: brightness(1.12);
+}
+
+.door:not(.locked):hover {
+  border-color: #ffd700;
+}
+
+.door.correct { border-color: #a3e635; box-shadow: 0 0 24px rgba(163, 230, 53, 0.5); }
+.door.wrong   { border-color: #ff6b6b; box-shadow: 0 0 24px rgba(255, 107, 107, 0.5); }
+
+.door.locked { cursor: default; }
+
+/* === Result === */
+.result {
+  margin-top: 22px;
+  font-size: 24px;
+  font-weight: bold;
+  min-height: 32px;
+}
+
+.result.good { color: #a3e635; }
+.result.bad  { color: #ff6b6b; }
+
+/* === Info === */
+.info-panel {
+  margin-top: 14px;
+  background: #14293d;
+  border-radius: 10px;
+  padding: 14px 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.info-row {
+  font-size: 15px;
+  color: #ddd;
+  line-height: 1.5;
+}
+
+.info-label {
+  color: #ffd700;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+/* === Handy / Tablet === */
+@media (max-width: 760px) {
+  body { padding: 10px; align-items: flex-start; }
+
+  .back-link {
+    position: static;
+    display: inline-block;
+    font-size: 13px;
+    padding: 6px 12px;
+    margin-bottom: 10px;
+  }
+
+  .game-wrap { width: 100%; }
+
+  .hud { padding: 10px 14px; }
+  .hud-label { font-size: 11px; }
+  .hud-stat { font-size: 18px; padding: 4px 12px; min-width: 44px; }
+  .hud-left, .hud-right { gap: 8px; }
+
+  .stage { padding: 20px 14px 24px; }
+  .stage-title { font-size: 30px; }
+  .hint { font-size: 16px; margin-bottom: 14px; }
+
+  .shape-picker { gap: 12px; margin-bottom: 20px; }
+  .shape-btn { width: 64px; height: 64px; }
+
+  .doors { gap: 12px; }
+  .door { width: 28vw; max-width: 130px; height: 46vw; max-height: 200px; }
+  .door-reveal svg { width: 60px; height: 60px; }
+
+  .result { font-size: 20px; margin-top: 16px; }
+  .info-panel { display: none; }
+}
+
+@media (max-width: 400px) {
+  .stage-title { font-size: 25px; }
+  .shape-btn { width: 56px; height: 56px; }
+}
